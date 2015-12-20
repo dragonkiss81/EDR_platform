@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Lesson_Map</string>
+    <string name="title_view_list">Opengate Map System</string>
+    <string name="title_activity_maps">Opengate Map System</string>
+
+    <!--for view list  interface-->
+    <string name="btn_watch">Watch the map !!</string>
+
+    <!-- for spinner -->
+    <string-array name="loc_list">
+        <item>Taipei</item>
+        <item>Taichung</item>
+        <item>Tainan</item>
+        <item>Kaohsiung</item>
+    </string-array>
+    <string name="spn_loc_list_prompt">Please choose your location</string>
+
+    <!--for map interface-->
+    <string name="btn_go_back">go back</string>
+    <string name="str_loc" />
+
+    <!-- for location -->
+    <string name="loc_taipei">Taipei</string>
+    <string name="loc_taichung">Taichung</string>
+    <string name="loc_tainan">Tainan</string>
+    <string name="loc_kaohsiung">Kaohsiung</string>
+    <string name="txt_sel_loc">Please select your favorite place</string>
+
+</resources>
