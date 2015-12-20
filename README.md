@@ -21,14 +21,14 @@ INFO	    | STRING	|  |
 
 ### 3. Design Diagram
 
-![My image](dragonkiss81.github.com/EDR_platform/design/class_diagram.jpg)
-![My image](dragonkiss81.github.com/EDR_platform/design/system_architecture.jpg)
+![My image](dragonkiss81.github.com/EDR_platform/design/class_diagram.png)
+![My image](dragonkiss81.github.com/EDR_platform/design/system_architecture.png)
 
 
 ### 4. User Interface 
 
-![My image](dragonkiss81.github.com/EDR_platform/design/menu.jpg)
-![My image](dragonkiss81.github.com/EDR_platform/design/list_view.jpg)
+![My image](dragonkiss81.github.com/EDR_platform/design/menu.png)
+![My image](dragonkiss81.github.com/EDR_platform/design/list_view.png)
 ![My image](dragonkiss81.github.com/EDR_platform/design/map_view.jpg)
 
 
