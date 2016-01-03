@@ -83,9 +83,10 @@ public class DBGetData{
         SQLiteDatabase db = dbService.getReadableDatabase();
         String selectQuery =  query;
 
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        db.execSQL(selectQuery);
+        //Cursor cursor = db.rawQuery(selectQuery, null);
+        //cursor.close();
 
-        cursor.close();
         db.close();
         return;
     }

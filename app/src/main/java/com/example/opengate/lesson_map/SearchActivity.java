@@ -231,13 +231,22 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
             searchSync.downloadForSearch("LAT", Double.toString(LocationLat), "LONGI", Double.toString(LocationLong), "DATENTIME", etvideoDatetime.getText().toString(), new SearchCallback() {
                 public void onResults(String str) {
                     Log.i("SEARCH_CALLBACK!", "CALLBACK!!");
+
+
+                    //Toast.makeText(SearchActivity.this, str, Toast.LENGTH_LONG).show();
+
+                    str = "INSERT INTO SEARCH_TABLE (SR, UID, PATH, NAME, LAT, LON, TIME, OWNER, INFO) VALUES ( NULL, 0, 0, \"car accident\", 3.1555, 3.14, \"2015-11-11 12:00:10\", \"0\", \"jk\")";
+
+                    Log.w("OD","LONG string : " + str);
+
                     String delims = "\n";
                     String[] tokens = str.split(delims);
-
                     for(String eachToken:tokens){
                         repo.rawQuery(eachToken);
-                        Log.i("OD",eachToken);
+                        Log.w("OD","eachtoken : " + eachToken);
                     }
+
+
 
                     Intent it = new Intent();
                     it.setClass(SearchActivity.this, MenuActivity.class);
