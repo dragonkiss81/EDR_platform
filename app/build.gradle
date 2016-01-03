@@ -3,13 +3,13 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
     defaultConfig {
         applicationId "com.example.opengate.lesson_map"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
     }
     buildTypes {
         release {
@@ -20,8 +20,21 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+   // compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+   // compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services-location:7.5.0'
+
+
+    compile 'com.android.support:design:23.1.1'
+    // Stetho core
+    compile 'com.facebook.stetho:stetho:1.2.0'
+    //If you want to add a network helper
+    compile 'com.facebook.stetho:stetho-okhttp:1.2.0'
+
+
+    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
 }

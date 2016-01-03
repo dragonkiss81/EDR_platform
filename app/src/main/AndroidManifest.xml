@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--<manifest 用來記錄專案相關資訊，package、version_code、version_name-->
+<!-- <manifest 用來記錄專案相關資訊，package、version_code、version_name -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.opengate.lesson_map" >
 
     <!-- 新增地圖元件的時候，自動加入的設定 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,31 +22,54 @@
             android:value="@integer/google_play_services_version" />
         <!-- Google Map API key -->
         <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ViewList"
-                  android:label="@string/title_view_list" >
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- 地圖元件 -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".LogSuccess"
+            android:label="@string/title_activity_log_success" >
+        </activity>
+        <activity android:name=".GPS" >
+        </activity>
+        <activity
+            android:name=".IndexActivity"
+            android:label="@string/title_index" >
+        </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_main_menu" >
+        </activity>
+        <activity
+            android:name=".ViewList"
+            android:label="@string/title_view_list" >
+        </activity>
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" >
-            <!--
-                        <intent-filter>
-                            <action android:name="android.intent.action.MAIN" />
-
-                            <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>
-                        -->
         </activity>
-
+        <activity
+            android:name=".GeoCoderActivity"
+            android:label="@string/title_activity_maps" >
+        </activity>
+        <activity android:name=".SearchActivity" >
+        </activity>
     </application>
 
 </manifest>

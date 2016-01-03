@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.opengate.lesson_map.IndexActivity">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/index_gps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/index_gps"
+            />
+
+        <TextView
+            android:layout_width="342dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_index_gps"
+            android:id="@+id/txt_index_gps"
+            android:textSize="@dimen/abc_text_size_display_1_material"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/index_left_txt" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <ImageButton
+            android:id="@+id/index_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/index_list"
+            />
+        <TextView
+            android:layout_width="342dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_index_list"
+            android:id="@+id/txt_index_list"
+            android:textSize="@dimen/abc_text_size_display_1_material"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/index_left_txt" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/index_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/index_search"
+            />
+        <TextView
+            android:layout_width="342dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_index_search"
+            android:id="@+id/txt_index_search"
+            android:textSize="@dimen/abc_text_size_display_1_material"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/index_left_txt" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/index_pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/index_pin"
+            />
+        <TextView
+            android:layout_width="342dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_index_pin"
+            android:id="@+id/txt_index_pin"
+            android:textSize="@dimen/abc_text_size_display_1_material"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/index_left_txt" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/index_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/index_message"
+            />
+        <TextView
+            android:layout_width="342dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_index_message"
+            android:id="@+id/txt_index_message"
+            android:textSize="@dimen/abc_text_size_display_1_material"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/index_left_txt" />
+    </TableRow>
+
+
+
+
+</TableLayout>

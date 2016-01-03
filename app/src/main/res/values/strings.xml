@@ -1,10 +1,29 @@
 <resources>
     <string name="app_name">Lesson_Map</string>
+    <string name="title_main_menu">Opengate Main Menu</string>
     <string name="title_view_list">Opengate Map System</string>
     <string name="title_activity_maps">Opengate Map System</string>
+    <string name="title_index">Opengate Event Tracker System</string>
+    <string name="action_settings">Opengate Map System</string>
+
+    <!--for main  interface-->
+    <string name="txt_index_gps">GPS</string>
+    <string name="txt_index_list">Your Track List</string>
+    <string name="txt_index_search">Search</string>
+    <string name="txt_index_pin">Pin a location</string>
+    <string name="txt_index_message">Message</string>
+
 
     <!--for view list  interface-->
+    <string name="txt_sel_loc">Please select your favorite place</string>
     <string name="btn_watch">Watch the map !!</string>
+
+    <!--for map interface-->
+    <string name="btn_go_back">go back</string>
+    <string name="str_name" />
+    <string name="str_id" />
+    <string name="str_time" />
+    <string name="str_owner" />
 
     <!-- for spinner -->
     <string-array name="loc_list">
@@ -15,15 +34,38 @@
     </string-array>
     <string name="spn_loc_list_prompt">Please choose your location</string>
 
-    <!--for map interface-->
-    <string name="btn_go_back">go back</string>
-    <string name="str_loc" />
-
     <!-- for location -->
     <string name="loc_taipei">Taipei</string>
     <string name="loc_taichung">Taichung</string>
     <string name="loc_tainan">Tainan</string>
     <string name="loc_kaohsiung">Kaohsiung</string>
-    <string name="txt_sel_loc">Please select your favorite place</string>
+
+
+    <!-- for   geo coder activity -->
+    <string name="hint_etLocationName"></string>
+    <string name="btSubmit">Search</string>
+
+    <string name="videoDatetime">Date time</string>
+    <string name="videoURL">URL</string>
+
+    <string name="videoTagInfo">Name</string>
+    <string name="send">Send</string>
+
+    <string name="msg_MapNotReady">Map is not ready</string>
+    <string name="msg_videoTagInfoIsEmpty">Name is empty</string>
+    <string name="msg_LocationNameIsEmpty">Location name is empty</string>
+    <string name="msg_LocationNameNotFound">Map not ready</string>
+    <string name="msg_videoDatetimeIsEmpty">Video date time is empty</string>
+    <string name="msg_videoURLIsEmpty">video URL is empty</string>
+
+    <string name="msg_OK"> OK! </string>
+
+    <!-- not classification -->
+    <string name="txt_testing">Accident View List</string>
+
+    <string name="facebook_app_id">437780689752886</string>
+    <string name="title_activity_menu">Menu</string>
+    <string name="title_activity_log_success">LogSuccess</string>
+
 
 </resources>

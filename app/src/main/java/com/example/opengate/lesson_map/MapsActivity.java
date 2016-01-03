@@ -1,51 +1,34 @@
 package com.example.opengate.lesson_map;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    /* declaration */
     private GoogleMap mMap;
-    private TextView str_loc;
-    private Button btn_go_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        /* variable initialization */
-        str_loc = (TextView) findViewById(R.id.str_loc);
-        btn_go_back = (Button) findViewById(R.id.btn_go_back);
-        btn_go_back.setOnClickListener(btnBackClick);
     }
-
-    private View.OnClickListener btnBackClick = new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-
-            Intent it = new Intent();
-            it.setClass(MapsActivity.this, ViewList.class);
-            startActivity(it);
-        }
-    };
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -60,14 +43,64 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         Bundle bundle = getIntent().getExtras();
-        String iSelectLoc = bundle.getString("SELECT_LOC");
+        final String iSelectName = bundle.getString("SELECT_NAME");
+        final String iSelectId = bundle.getString("SELECT_ID");
+        final String iSelectPath = bundle.getString("SELECT_PATH");
+        final String iSelectTime = bundle.getString("SELECT_TIME");
+        final String iSelectOwner = bundle.getString("SELECT_OWNER");
+        final String dbName = bundle.getString("SELECT_DB");
         double iSelectLat = bundle.getDouble("SELECT_LAT");
         double iSelectLon = bundle.getDouble("SELECT_LON");
-        LatLng curLoc = new LatLng(iSelectLat, iSelectLon);
+        double iDotCount = bundle.getDouble("SELECT_DOT_COUNT");
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 15.0f));
-        mMap.addMarker(new MarkerOptions().position(curLoc).title(iSelectLoc).snippet("your favorite city"));
 
-        str_loc.setText(iSelectLoc + "(" + String.valueOf(iSelectLat) + "," + String.valueOf(iSelectLon) + ")");
+        if(iDotCount == 1) {
+            LatLng curLoc = new LatLng(iSelectLat, iSelectLon);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 15.0f));
+            mMap.addMarker(new MarkerOptions().position(curLoc));
+        }
+        else{
+            LatLng curLoc = new LatLng(25.0336110, 121.5650000);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 15.0f));
+            PolylineOptions polylineOpt = new PolylineOptions()
+                                                .width(15)
+                                                .color(R.color.material_blue_grey_800);
+
+            DBGetData repo = new DBGetData(this);
+            ArrayList<LatLng> listLatLng = repo.getPathLatLngList(iSelectPath, dbName);
+
+            /* for debug, testing data
+                listLatLng.add(new LatLng(25.032,121.5670000));
+                listLatLng.add(new LatLng(25.0336110,121.5650000));
+                listLatLng.add(new LatLng(25.037,121.5650000));
+                listLatLng.add(new LatLng(25.038, 121.5630000));
+            */
+            for(LatLng eachPoint:listLatLng)
+                mMap.addMarker(new MarkerOptions()
+                        .position(eachPoint)
+                        .alpha(0.7f)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+            polylineOpt.addAll(listLatLng);
+            mMap.addPolyline(polylineOpt);
+        }
+
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                View v = getLayoutInflater().inflate(R.layout.map_info, null);
+                TextView txtTitle = (TextView) v.findViewById(R.id.textView1);
+                txtTitle.setText(iSelectName);
+                TextView txtSnippet = (TextView) v.findViewById(R.id.textView2);
+                txtSnippet.setText(iSelectId + "\n" + iSelectTime + "\n" + iSelectOwner);
+                return v;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                marker.hideInfoWindow();
+                return null;
+            }
+        });
     }
 }
