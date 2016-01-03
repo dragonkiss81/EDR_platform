@@ -31,7 +31,7 @@ public class MyApplication extends Application {
     public void printHashKey() {
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
-                    "daniel.login",
+                    "com.example.opengate.lesson_map",
                     PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");

@@ -93,13 +93,15 @@ public class Synchronizer {
         targetURL = SERVER_SEARCH_URL + "?" + lanName + "=" + lanData + "&" + longName + "=" + longData + "&" + timeName + "=" + timeData.replaceAll(" ","%20");
         clientForSearch = new DefaultHttpClient();
         getForSearch = new HttpGet(targetURL);
+        Log.i(TAG, "SEARCH!");
 
         Thread thread = new Thread(){
             public void run(){
                 try {
                     responseForSearch = clientForSearch.execute(getForSearch);
                     resEntityForSearch = responseForSearch.getEntity();
-                    Log.i(TAG, EntityUtils.toString(resEntityForSearch));
+                    //Log.i(TAG, EntityUtils.toString(resEntityForSearch));
+                    Log.i(TAG, "SEARCH!DONE!");
                     callback.onResults(EntityUtils.toString(resEntityForSearch));
                 }
                 catch (Exception e) {

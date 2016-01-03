@@ -222,15 +222,15 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
             showToast(R.string.msg_OK);
 
 
-            Intent it = new Intent();
-            it.setClass(SearchActivity.this, MenuActivity.class);
+            //Intent it = new Intent();
+            //it.setClass(SearchActivity.this, MenuActivity.class);
 
 
 
             Synchronizer searchSync = new Synchronizer();
             searchSync.downloadForSearch("LAT", Double.toString(LocationLat), "LONGI", Double.toString(LocationLong), "DATENTIME", etvideoDatetime.getText().toString(), new SearchCallback() {
                 public void onResults(String str) {
-
+                    Log.i("SEARCH_CALLBACK!", "CALLBACK!!");
                     String delims = "\n";
                     String[] tokens = str.split(delims);
 
