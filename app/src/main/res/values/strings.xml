@@ -59,6 +59,7 @@
     <string name="msg_videoURLIsEmpty">video URL is empty</string>
 
     <string name="msg_OK"> OK! </string>
+    <string name="msg_NoMatch"> NO match Accident! </string>
 
     <!-- not classification -->
     <string name="txt_testing">Accident View List</string>

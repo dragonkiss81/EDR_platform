@@ -219,13 +219,13 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
         }
         else
         {
-            showToast(R.string.msg_OK);
+
 
 
             //Intent it = new Intent();
             //it.setClass(SearchActivity.this, MenuActivity.class);
 
-
+            showToast(R.string.msg_OK);
 
             Synchronizer searchSync = new Synchronizer();
             searchSync.downloadForSearch("LAT", Double.toString(LocationLat), "LONGI", Double.toString(LocationLong), "DATENTIME", etvideoDatetime.getText().toString(), new SearchCallback() {
@@ -235,27 +235,36 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
 
                     //Toast.makeText(SearchActivity.this, str, Toast.LENGTH_LONG).show();
 
-                    str = "INSERT INTO SEARCH_TABLE (SR, UID, PATH, NAME, LAT, LON, TIME, OWNER, INFO) VALUES ( NULL, 0, 0, \"car accident\", 3.1555, 3.14, \"2015-11-11 12:00:10\", \"0\", \"jk\")";
+                   //str = "INSERT INTO SEARCH_TABLE (SR, UID, PATH, NAME, LAT, LON, TIME, OWNER, INFO) VALUES ( NULL, xxx, 00001, \"car accident\", 2501.2039, 12128.6143, \"2016-01-03 00:35:25\", \"xxx\", \"xxx\") INSERT INTO SEARCH_TABLE (SR, UID, PATH, NAME, LAT, LON, TIME, OWNER, INFO) VALUES ( NULL, xxx, 00001, \"car accident\", 2501.1855, 12128.5908, \"2016-01-03 00:35:35\", \"xxx\", \"xxx\") INSERT INTO SEARCH_TABLE (SR, UID, PATH, NAME, LAT, LON, TIME, OWNER, INFO) VALUES ( NULL, xxx, 00001, \"car accident\", 2501.1855, 12128.5908, \"2016-01-03 00:35:46\", \"xxx\", \"xxx\") INSERT INTO SEARCH_TABLE (SR, UID, PATH, NAME, LAT, LON, TIME, OWNER, INFO) VALUES ( NULL, xxx, 00001, \"car accident\", 2501.1855, 12128.5908, \"2016-01-03 00:35:57\", \"xxx\", \"xxx\")";
 
-                    Log.w("OD","LONG string : " + str);
+                    Log.w("OD", "LONG string : " + str);
+                    Log.w("OD", "LONG string len : " + str.length());
 
-                    String delims = "\n";
-                    String[] tokens = str.split(delims);
-                    for(String eachToken:tokens){
-                        repo.rawQuery(eachToken);
-                        Log.w("OD","eachtoken : " + eachToken);
+
+                    if(str.length()==0)
+                    {
+                       // Toast.makeText(SearchActivity.this,"NO match Accident!",Toast.LENGTH_LONG ).show();
+                        showToast(R.string.msg_NoMatch);
+                    }
+                    else
+                    {
+                        String delims = "\n";
+                        String[] tokens = str.split(delims);
+                        for(String eachToken:tokens){
+                            repo.rawQuery(eachToken);
+                            Log.w("OD","eachtoken : " + eachToken);
+                        }
+
+                        Intent it = new Intent();
+                        it.setClass(SearchActivity.this, MenuActivity.class);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("SELECT_DB", ItemGPS.DATABASE_TABLE_2);
+                        it.putExtras(bundle);
+
+                        startActivity(it);
                     }
 
-
-
-                    Intent it = new Intent();
-                    it.setClass(SearchActivity.this, MenuActivity.class);
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString("SELECT_DB", ItemGPS.DATABASE_TABLE_2);
-                    it.putExtras(bundle);
-
-                    startActivity(it);
                 }
 
             });
