@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 
 import org.apache.http.util.EncodingUtils;
@@ -284,8 +285,7 @@ public class GPS extends Activity {
                             float long_2 = Float.parseFloat(Long.substring(3));
                             long_2 = long_2 / 60.0f;
                             Long = long_1 + Float.toString(long_2).substring(1);
-
-
+                            //FacebookSdk.sdkInitialize(getApplicationContext());
                             SyncObj.uploadForGPS(
                                     "DATENTIME", strDT,
                                     "LAT", Lang,
@@ -300,17 +300,17 @@ public class GPS extends Activity {
                             String facebookID = profile.getId();
                             String facebook_name = profile.getName();
 
-                            repo.rawQuery(" INSERT INTO" + ItemGPS.DATABASE_TABLE +
+                            repo.rawQuery(" INSERT INTO " + ItemGPS.DATABASE_TABLE +
                                     "(SR, UID, PATH, NAME, LAT, LON, TIME, OWNER, INFO)VALUES(" +
                                     "NULL" + "," +
-                                    facebookID + "," +
-                                    Integer.toString(GPS_OP_Count)  + "," +
-                                    "GPS record:" + Integer.toString(GPS_OP_Count) + "," +
+                                    "\"" + facebookID + "\""+ "," +
+                                    "\"" +Integer.toString(GPS_OP_Count)  +"\""+ "," +
+                                    "\"" + "GPS record:" + Integer.toString(GPS_OP_Count) +"\""+ "," +
                                     Lang + "," +
                                     Long + "," +
-                                    strDT + "," +
-                                    facebook_name +"," +
-                                    "infomation");
+                                    "\"" + strDT + "\"" + "," +
+                                    "\"" +facebook_name+ "\"" +"," +
+                                    "\""+"infomation"+ "\")");
 
 
                         }

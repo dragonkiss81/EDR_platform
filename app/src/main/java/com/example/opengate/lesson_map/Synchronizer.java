@@ -7,6 +7,7 @@ package com.example.opengate.lesson_map;
  */
 import android.util.Log;
 
+import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 
 import org.apache.http.HttpEntity;
