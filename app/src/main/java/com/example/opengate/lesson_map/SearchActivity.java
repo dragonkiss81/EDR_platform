@@ -248,6 +248,8 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
                     }
                     else
                     {
+                        repo.rawQuery("delete from " + ItemGPS.DATABASE_TABLE_2);
+
                         String delims = "\n";
                         String[] tokens = str.split(delims);
                         for(String eachToken:tokens){

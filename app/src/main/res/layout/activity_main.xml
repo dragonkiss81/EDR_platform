@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="行車紀錄器\n  記錄平台"
+            android:text="行車紀錄器\n  互助平台"
             android:textSize="100px"
             android:textColor="#ffffff"
             android:id="@+id/textView"

@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setClass(LoginActivity.this, IndexActivity.class);
             startActivity(intent);
-            //LoginActivity.this.finish();
+            LoginActivity.this.finish();
         }
 
         callbackManager = CallbackManager.Factory.create();
@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent();
                                 intent.setClass(LoginActivity.this, IndexActivity.class);
                                 startActivity(intent);
-                                //LoginActivity.this.finish();
+                                LoginActivity.this.finish();
                             }
                         });
                 Bundle parameters = new Bundle();

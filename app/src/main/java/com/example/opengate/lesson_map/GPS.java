@@ -24,6 +24,8 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.facebook.Profile;
+
 import org.apache.http.util.EncodingUtils;
 
 import java.text.SimpleDateFormat;
@@ -49,7 +51,7 @@ public class GPS extends Activity {
     private int GPS_OP_Count = 0;
     private int TimesCount = 0;
     private Date PriorDate = null;
-    private int TM_Interval = 1000 * 10;    // 憭?摮?銝甈??桐?ms
+    private int TM_Interval = 1000 * 10;
     //
     private Handler mHandler = null;
 
@@ -92,19 +94,6 @@ public class GPS extends Activity {
         // TODO Auto-generated method stub
         super.onDestroy();
 
-        /*
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-            return;
-        }
-        */
-
         locationManager.removeUpdates(locationListener);
         locationManager.removeNmeaListener(nmeaListener);
     }
@@ -113,13 +102,7 @@ public class GPS extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //if (id == R.id.action_settings) {
-        //	return true;
-        //}
         return super.onOptionsItemSelected(item);
     }
 
@@ -129,27 +112,24 @@ public class GPS extends Activity {
             @Override
             public void onLocationChanged(Location loc) {
                 // TODO Auto-generated method stub
-                //摰?鞈??湔???
                 Log.d("GPS-NMEA", loc.getLatitude() + "," +  loc.getLongitude());
             }
 
             @Override
             public void onProviderDisabled(String provider) {
                 // TODO Auto-generated method stub
-                //摰????????????潘?銝血?????靘?逍rovider摮葡銝?
             }
 
             @Override
             public void onProviderEnabled(String provider) {
                 // TODO Auto-generated method stub
-                //摰????????????潘?銝血?????靘?逍rovider摮葡銝?
             }
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
                 // TODO Auto-generated method stub
                 Log.d("GPS-NMEA", provider + "");
-                //GPS???靘????靘gps????雿?
+
                 switch (status) {
                     case LocationProvider.OUT_OF_SERVICE:
                         Log.d("GPS-NMEA","OUT_OF_SERVICE");
@@ -220,7 +200,7 @@ public class GPS extends Activity {
 
     private int GetOperationCount()
     {
-        String filename = "GPS_OP_Count.txte";
+        String filename = "GPS_OP_Count.txt";
         int Count = 0;
         String result="";
         try {
@@ -248,6 +228,7 @@ public class GPS extends Activity {
     }
 
     private void registerHandler(){
+        final DBGetData repo = new DBGetData(this);
 	/*
 	GGA Global Positioning System Fix Data. Time, Position and fix related data for a GPS receiver
 	11
@@ -286,7 +267,6 @@ public class GPS extends Activity {
                 txtGPS_Satellites.setText(rawNmeaSplit[7]);
 
                 Log.d("GPS-NMEA", "GPS DATA is READY");
-                // Todo ?甈⊥(time)
                 if (Lang != "" && Long != "" && cboxGPS_Enabled.isChecked()) {
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date curDate = new Date(System.currentTimeMillis()) ;
@@ -294,22 +274,53 @@ public class GPS extends Activity {
 
                     if ((curDate.getTime() - PriorDate.getTime()) > TM_Interval) {
                         Log.d("GPS-NMEA", "GPS_DATA_SAVE");
-                        SyncObj.uploadForGPS(
-                                "DATENTIME", strDT,
-                                "LAT", Lang,
-                                "LONGI", Long);
-                        txtTimes.setText("Time:" + strDT);
-                        txtSend.setText("Send:" + TimesCount);
-                        TimesCount++;
-                        PriorDate = curDate;
+                        if( Long.length() > 0 && Lang.length() > 0) {
+                            String lang_1 = Lang.substring(0, 2);
+                            float lang_2 = Float.parseFloat(Lang.substring(2));
+                            lang_2 = lang_2 / 60.0f;
+                            Lang = lang_1 + Float.toString(lang_2).substring(1);
 
+                            String long_1 = Long.substring(0, 3);
+                            float long_2 = Float.parseFloat(Long.substring(3));
+                            long_2 = long_2 / 60.0f;
+                            Long = long_1 + Float.toString(long_2).substring(1);
+
+
+                            SyncObj.uploadForGPS(
+                                    "DATENTIME", strDT,
+                                    "LAT", Lang,
+                                    "LONGI", Long,
+                                    "PATH", Integer.toString(GPS_OP_Count));
+                            txtTimes.setText("Time::" + strDT);
+                            txtSend.setText("Send:" + TimesCount + " ,OP times:" + GPS_OP_Count);
+                            TimesCount++;
+                            PriorDate = curDate;
+
+                            Profile profile = Profile.getCurrentProfile();
+                            String facebookID = profile.getId();
+                            String facebook_name = profile.getName();
+
+                            repo.rawQuery(" INSERT INTO" + ItemGPS.DATABASE_TABLE +
+                                    "(SR, UID, PATH, NAME, LAT, LON, TIME, OWNER, INFO)VALUES(" +
+                                    "NULL" + "," +
+                                    facebookID + "," +
+                                    Integer.toString(GPS_OP_Count)  + "," +
+                                    "GPS record:" + Integer.toString(GPS_OP_Count) + "," +
+                                    Lang + "," +
+                                    Long + "," +
+                                    strDT + "," +
+                                    facebook_name +"," +
+                                    "infomation");
+
+
+                        }
                     }
                 }
             }
         };
     }
 
-    //??nmea鞈??allback
+    // Callback function for NMEA code process
     private void nmeaProgress(String rawNmea){
 
         String[] rawNmeaSplit = rawNmea.split(",");
@@ -326,11 +337,9 @@ public class GPS extends Activity {
         boolean valid = true;
         byte[] bytes = rawNmea.getBytes();
         int checksumIndex = rawNmea.indexOf("*");
-        //NMEA ??敺checksum number
         byte checksumCalcValue = 0;
         int checksumValue;
 
-        //瑼Ｘ??臬??
         if ((rawNmea.charAt(0) != '$') || (checksumIndex==-1)){
             valid = false;
         }

@@ -60,14 +60,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(curLoc));
         }
         else{
-            LatLng curLoc = new LatLng(25.0336110, 121.5650000);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 15.0f));
+            //LatLng curLoc = new LatLng(25.0336110, 121.5650000);
+
             PolylineOptions polylineOpt = new PolylineOptions()
                                                 .width(15)
                                                 .color(R.color.material_blue_grey_800);
 
             DBGetData repo = new DBGetData(this);
             ArrayList<LatLng> listLatLng = repo.getPathLatLngList(iSelectPath, dbName);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(listLatLng.get(listLatLng.size()/2), 15.0f));
 
             /* for debug, testing data
                 listLatLng.add(new LatLng(25.032,121.5670000));

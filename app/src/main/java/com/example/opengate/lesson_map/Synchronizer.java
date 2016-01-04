@@ -7,12 +7,16 @@ package com.example.opengate.lesson_map;
  */
 import android.util.Log;
 
+import com.facebook.Profile;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
+import java.util.Random;
 
 public class Synchronizer {
     private static final String SERVER_URL="http://23.102.179.154/index.py";
@@ -45,10 +49,13 @@ public class Synchronizer {
 
     private static HttpEntity resEntityForSearch;
 
-    public void uploadForGPS(String timeName,String timeData,String lanName,String lanData,String longName,String longData){
+    public void uploadForGPS(String timeName,String timeData,String lanName,String lanData,String longName,String longData,String pathName,String pathData){
         String targetURL;
 
-        targetURL = SERVER_URL + "?" + "UID" + "=" + "xxx" + "&" + timeName + "=" + timeData.replaceAll(" ","%20") + "&" + "URL" + "=" + "xxx" + "&" + "NAME" + "=" + "xxx" + "&" +lanName + "=" +lanData + "&" +longName + "=" +longData+ "&" +"ADDRESS"+ "=" +"xxx" + "&" + "PATH" + "=" + "00001";
+        Profile profile = Profile.getCurrentProfile();
+        String facebookID = profile.getId();
+
+        targetURL = SERVER_URL + "?" + "UID" + "=" + facebookID + "&" + timeName + "=" + timeData.replaceAll(" ","%20") + "&" + "URL" + "=" + "xxx" + "&" + "NAME" + "=" + "xxx" + "&" +lanName + "=" +lanData + "&" +longName + "=" +longData+ "&" +"ADDRESS"+ "=" +"xxx" + "&" + pathName + "=" + pathData;
         clientForGPS = new DefaultHttpClient();
         getForGPS = new HttpGet(targetURL);
 
@@ -69,7 +76,10 @@ public class Synchronizer {
 
     public void uploadForPinner(String timeName,String timeData,String URLName,String URLData,String nameName,String nameData,String lanName,String lanData,String longName,String longData,String addrName,String addrData){
         String targetURL;
-        targetURL = SERVER_URL + "?" + "UID" + "=" + "xxx" + "&" + timeName + "=" + timeData.replaceAll(" ","%20") + "&" + URLName + "=" + URLData.replaceAll(" ","%20") + "&" +nameName + "=" + nameData.replaceAll(" ","%20") + "&" +lanName + "=" +lanData + "&" +longName + "=" +longData+ "&" +addrName+ "=" +addrData.replaceAll(" ","%20") + "&" + "PATH" + "=" + "1";
+        Profile profile = Profile.getCurrentProfile();
+        String facebookID = profile.getId();
+        Random ran = new Random();
+        targetURL = SERVER_URL + "?" + "UID" + "=" + facebookID + "&" + timeName + "=" + timeData.replaceAll(" ","%20") + "&" + URLName + "=" + URLData.replaceAll(" ","%20") + "&" +nameName + "=" + nameData.replaceAll(" ","%20") + "&" +lanName + "=" +lanData + "&" +longName + "=" +longData+ "&" +addrName+ "=" +addrData.replaceAll(" ","%20") + "&" + "PATH" + "=" + Integer.toString(ran.nextInt(30000) + 1000);
         clientForPin = new DefaultHttpClient();
         getForPin = new HttpGet(targetURL);
 
